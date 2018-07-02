@@ -13,7 +13,7 @@ router.get("/", function (req, res) {
 	});
 
 });
-//Saved MTHL
+//Saved HTML
 router.get("/saved", function (req, res) {
     var articlesObj;
     controller.savedArticleFind().then( data => {
@@ -39,7 +39,7 @@ router.delete("/api/saved/:id", controller.savedArticleDelete);
 
 //notes
 router.get("/api/note/:id", controller.noteFind);
-router.post("/api/note/", controller.noteCreate);
-router.delete("/api/note/:id", controller.noteDelete);
+router.post("/api/note/:id", controller.noteCreate);
+router.delete("/api/note/:noteid", controller.noteDelete);
 
 module.exports = router;

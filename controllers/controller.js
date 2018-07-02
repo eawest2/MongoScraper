@@ -27,7 +27,7 @@ module.exports = {
             .catch(function (err) {
                 res.json(err);
             });
-            
+
 
 
     },
@@ -45,7 +45,7 @@ module.exports = {
     //find all articles that are saved, to write to dom
     savedArticleFind: function (req, res) {
         // Find all Notes
-        db.Article.find({saved:true})
+        db.Article.find({ saved: true })
             .then(function (articlesFound) {
                 res.json(articlesFound);
             })
@@ -58,12 +58,10 @@ module.exports = {
     //add specific article to saved list
     savedArticleAdd: function (req, res) {
         let articleId = req.params.id;
-        console.log(req.params);
-        console.log(articleId);
         // Find all Notes
         db.Article.findOneAndUpdate({
             _id: articleId
-        }, {saved:true} , function (err, res) {
+        }, { saved: true }, function (err, res) {
             if (err) console.log(err);
             // Deal with the response data/error
         }).then(function (returnSave) {
@@ -76,7 +74,7 @@ module.exports = {
         // Find all Notes
         db.Article.findOneAndUpdate({
             _id: articleId
-        }, {saved:false} , function (err, res) {
+        }, { saved: false }, function (err, res) {
             if (err) console.log(err);
             // Deal with the response data/error
         }).then(function (returnSave) {
@@ -86,7 +84,44 @@ module.exports = {
 
     // //notes
 
-    noteFind: function () { },
-    noteCreate: function () { },
-    noteDelete: function () { }
+    noteFind: function (req, res) {
+        let articleId = req.params.id;
+        let noteSummary = [];
+        // Find all Notes
+        db.Article.find({
+            _id: articleId
+        }, function (err, res) {
+            if (err) console.log(err);
+            // Deal with the response data/error
+        }).then(function (noteResults) {
+            noteResults.note.map(data => {
+                noteSummary.push(data);
+            })
+            res.json(noteSummary);
+        });
+    },
+    noteCreate: function () {
+        let articleId = req.params.id;
+        // Find all Notes
+        db.Article.find({
+            _id: articleId
+        }, function (err, res) {
+            if (err) console.log(err);
+            // Deal with the response data/error
+        }).then(function (data) {
+            res.json(data);
+        }); },
+        
+    noteDelete: function (req, res) {
+        let noteNum = req.params.noteid
+        // Find all Notes
+        db.Note.deleteOne({
+            _id: noteNum
+        }, function (err, res) {
+            if (err) console.log(err);
+            // Deal with the response data/error
+        }).then(
+            console.log(`Note number: ${noteNum} deleted.`)
+        );
+    }
 };
