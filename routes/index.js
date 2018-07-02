@@ -32,11 +32,9 @@ router.get("/api/scrape", controller.scrapeHeadlines);
 
 
 //headlines
-//router.get("/api", controller.articleFind);
 router.delete("/api/delete", controller.articleDelete);
 
 //saves
-//router.get("/api/saved", controller.savedArticleFind);
 router.post("/api/saved/:id", controller.savedArticleAdd);
 router.delete("/api/saved/:id", controller.savedArticleDelete);
 

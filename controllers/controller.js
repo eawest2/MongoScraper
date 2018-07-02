@@ -29,18 +29,6 @@ module.exports = {
             });
     },
 
-    //find all articles that are saved, to write to dom
-    // savedArticleFind: function (req, res) {
-    //     // Find all Notes
-    //     db.Article.find({ saved: true })
-    //         .then(function (articlesFound) {
-    //             res.json(articlesFound);
-    //         })
-    //         .catch(function (err) {
-    //             res.json(err);
-    //         });
-    //},
-
     //add specific article to saved list
     savedArticleAdd: function (req, res) {
         let articleId = req.params.id;
@@ -48,10 +36,10 @@ module.exports = {
         db.Article.findOneAndUpdate({
             _id: articleId
         }, { saved: true }, function (err, res) {
-            if (err) console.log(err);
-            // Deal with the response data/error
         }).then(function (returnSave) {
             res.json(returnSave);
+        }).catch(function (err) {
+            res.json(err);
         });
     },
     //remove article from saved list

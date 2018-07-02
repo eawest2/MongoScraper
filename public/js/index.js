@@ -24,8 +24,8 @@ $(function() {
     });
 
     //save listener
-    $("#save").on("click", function(event) {
-        const id = $(this).data("id");
+    $(document).on("click", "#save", function(event) {
+        let id = $(this).attr("data-id");
         $.ajax("/api/saved/"+id, {
             type: "POST",
         }). then(
