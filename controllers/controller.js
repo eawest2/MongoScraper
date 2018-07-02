@@ -18,19 +18,6 @@ module.exports = {
             });
     },
 
-    //Select headlines to write to dom
-    articleFind: function (req, res) {
-        return db.Article.find({})
-            .then(function (articlesFound) {
-                res.json(articlesFound);
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
-
-
-
-    },
     //Clear all articles from mongo
     articleDelete: function (req, res) {
         db.Article.deleteMany()
@@ -43,18 +30,17 @@ module.exports = {
     },
 
     //find all articles that are saved, to write to dom
-    savedArticleFind: function (req, res) {
-        // Find all Notes
-        db.Article.find({ saved: true })
-            .then(function (articlesFound) {
-                res.json(articlesFound);
-            })
-            .catch(function (err) {
-                res.json(err);
-            });
+    // savedArticleFind: function (req, res) {
+    //     // Find all Notes
+    //     db.Article.find({ saved: true })
+    //         .then(function (articlesFound) {
+    //             res.json(articlesFound);
+    //         })
+    //         .catch(function (err) {
+    //             res.json(err);
+    //         });
+    //},
 
-
-    },
     //add specific article to saved list
     savedArticleAdd: function (req, res) {
         let articleId = req.params.id;
@@ -110,8 +96,9 @@ module.exports = {
             // Deal with the response data/error
         }).then(function (data) {
             res.json(data);
-        }); },
-        
+        });
+    },
+
     noteDelete: function (req, res) {
         let noteNum = req.params.noteid
         // Find all Notes

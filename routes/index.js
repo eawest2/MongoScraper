@@ -1,26 +1,29 @@
 const router = require("express").Router();
 const controller = require("../controllers/controller.js");
+const db = require("../models");
 
 //Handlebars
 
 //Homepage HTML
 router.get("/", function (req, res) {
-    var articlesObj;
-    controller.articleFind().then(data => {
-        res.render("index", { 'articlesObj': data });
-    }).catch(err=>{
-		res.render("index", {'errors':'No articles found'})
-	});
-
+            db.Article.find({})
+                .then(function (articlesFound) {
+            res.render("index", { articlesObj: articlesFound });
+                })
+                .catch(function (err) {
+                    res.json(err);
+                });
 });
+
 //Saved HTML
 router.get("/saved", function (req, res) {
-    var articlesObj;
-    controller.savedArticleFind().then( data => {
-        res.render("saved", { 'articlesObj': data });
-    }).catch(err=>{
-		res.render("saved", {'errors':'No articles found'})
-	});
+    db.Article.find({ saved: true })
+        .then(function (articlesFound) {
+    res.render("saved", { articlesObj: articlesFound });
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
 });
 
 //API
@@ -29,11 +32,11 @@ router.get("/api/scrape", controller.scrapeHeadlines);
 
 
 //headlines
-router.get("/api", controller.articleFind);
+//router.get("/api", controller.articleFind);
 router.delete("/api/delete", controller.articleDelete);
 
 //saves
-router.get("/api/saved", controller.savedArticleFind);
+//router.get("/api/saved", controller.savedArticleFind);
 router.post("/api/saved/:id", controller.savedArticleAdd);
 router.delete("/api/saved/:id", controller.savedArticleDelete);
 
