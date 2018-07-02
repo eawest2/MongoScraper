@@ -2,7 +2,8 @@ const router = require("express").Router();
 const controller = require("../controllers/controller.js");
 
 //Handlebars
-//Homepage
+
+//Homepage HTML
 router.get("/", function (req, res) {
     var articlesObj;
     controller.articleFind().then(data => {
@@ -12,7 +13,7 @@ router.get("/", function (req, res) {
 	});
 
 });
-//Saved
+//Saved MTHL
 router.get("/saved", function (req, res) {
     var articlesObj;
     controller.savedArticleFind().then( data => {
@@ -29,8 +30,12 @@ router.get("/api/scrape", controller.scrapeHeadlines);
 
 //headlines
 router.get("/api", controller.articleFind);
-router.get("/api/saved", controller.savedArticleFind);
 router.delete("/api/delete", controller.articleDelete);
+
+//saves
+router.get("/api/saved", controller.savedArticleFind);
+router.post("/api/saved/:id", controller.savedArticleAdd);
+router.delete("/api/saved/:id", controller.savedArticleDelete);
 
 //notes
 router.get("/api/note/:id", controller.noteFind);

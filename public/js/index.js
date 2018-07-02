@@ -23,6 +23,18 @@ $(function() {
         );
     });
 
+    //save listener
+    $("#save").on("click", function(event) {
+        const id = $(this).data("id");
+        $.ajax("/api/saved/"+id, {
+            type: "POST",
+        }). then(
+            function() {
+            location.reload();
+            }
+        );
+    });    
+
     //Page Load Listener
     $(document).ready(function(event) {
         //req

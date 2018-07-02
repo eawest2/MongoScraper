@@ -2,21 +2,11 @@ const db = require("../models");
 const scrape = require("../scripts/");
 
 module.exports = {
-    //scrape
+    //scrape using scripts/index.js
     scrapeHeadlines: function (req, res) {
         scrape()
             .then(() => {
                 rawArticles.map(item => {
-                    // Create a new Article using the `result` object built from scraping
-                    //db.Article.create(item)
-                    // .then(function (dbArticle) {
-                    //     // View the added result in the console
-                    //     console.log(dbArticle);
-                    // })
-                    // .catch(function (err) {
-                    //     // If an error occurred, send it to the client
-                    //     return console.log(err);
-                    // });
                     db.Article.findOneAndUpdate({
                         url: item.url
                     }, item, { upsert: true }, function (err, res) {
@@ -28,46 +18,70 @@ module.exports = {
             });
     },
 
-    //headlines
+    //Select headlines to write to dom
     articleFind: function (req, res) {
-        // Find all Notes
         return db.Article.find({})
             .then(function (articlesFound) {
-                // If all Notes are successfully found, send them back to the client
                 res.json(articlesFound);
             })
             .catch(function (err) {
-                // If an error occurs, send the error back to the client
                 res.json(err);
             });
             
 
 
     },
+    //Clear all articles from mongo
     articleDelete: function (req, res) {
         db.Article.deleteMany()
             .then(function () {
                 res.send('Articles deleted');
             })
             .catch(function (err) {
-                // If an error occurs, send the error back to the client
                 res.json(err);
             });
     },
 
+    //find all articles that are saved, to write to dom
     savedArticleFind: function (req, res) {
         // Find all Notes
         db.Article.find({saved:true})
             .then(function (articlesFound) {
-                // If all Notes are successfully found, send them back to the client
                 res.json(articlesFound);
             })
             .catch(function (err) {
-                // If an error occurs, send the error back to the client
                 res.json(err);
             });
 
 
+    },
+    //add specific article to saved list
+    savedArticleAdd: function (req, res) {
+        let articleId = req.params.id;
+        console.log(req.params);
+        console.log(articleId);
+        // Find all Notes
+        db.Article.findOneAndUpdate({
+            _id: articleId
+        }, {saved:true} , function (err, res) {
+            if (err) console.log(err);
+            // Deal with the response data/error
+        }).then(function (returnSave) {
+            res.json(returnSave);
+        });
+    },
+    //remove article from saved list
+    savedArticleDelete: function (req, res) {
+        let articleId = req.params.id;
+        // Find all Notes
+        db.Article.findOneAndUpdate({
+            _id: articleId
+        }, {saved:false} , function (err, res) {
+            if (err) console.log(err);
+            // Deal with the response data/error
+        }).then(function (returnSave) {
+            res.json(returnSave);
+        });
     },
 
     // //notes
