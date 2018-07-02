@@ -7,15 +7,19 @@ router.get("/", function (req, res) {
     var articlesObj;
     controller.articleFind().then(data => {
         res.render("index", { 'articlesObj': data });
-    });
+    }).catch(err=>{
+		res.render("index", {'errors':'No articles found'})
+	});
 
 });
 //Saved
 router.get("/saved", function (req, res) {
     var articlesObj;
-    controller.savedArticleFind().then(data => {
+    controller.savedArticleFind().then( data => {
         res.render("saved", { 'articlesObj': data });
-    });
+    }).catch(err=>{
+		res.render("saved", {'errors':'No articles found'})
+	});
 });
 
 //API

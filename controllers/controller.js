@@ -30,20 +30,17 @@ module.exports = {
 
     //headlines
     articleFind: function (req, res) {
-        var returnArticles = [];
         // Find all Notes
-        db.Article.find({})
+        return db.Article.find({})
             .then(function (articlesFound) {
                 // If all Notes are successfully found, send them back to the client
-                articlesFound.map(()=> {
-                    
-                });
                 res.json(articlesFound);
             })
             .catch(function (err) {
                 // If an error occurs, send the error back to the client
                 res.json(err);
             });
+            
 
 
     },
