@@ -1,0 +1,9 @@
+.background-image{
+    height:75%;
+    background-image:url("./images/bigBen.jpg");
+    background-size:cover;
+}
+
+.jspacer{
+    height:125px
+}
