@@ -1,18 +1,33 @@
-<div class="card">
+<div class="card container m-2">
     <div class="card-header">
         <h3>
-            <a class="article-link" target="_blank" rel="noopener noreferrer" href="{{url}}" target="_blank">{{headline}}</a>
+            <a class="text-dark" target="_blank" rel="noopener noreferrer" href="{{url}}" target="_blank">{{headline}}</a>
             <a class="btn btn-danger unsave" data-id="{{id}}" id="unsave">Remove Article</a>
         </h3>
     </div>
     <div class="card-body">{{summary}}</div>
-    <div class= "row">
-        <h5>Add a Note</h5>
-        <input type="text" name="title" placeholder="Title" id= "noteHeadline">
-        <textarea type="text" name="body" id="noteBody">Write Note Here</textarea>
-        <input type="submit" class = "btn btn-success" data-id="{{id}}" id="addNote">
+    <div class="row">
+        <h5 class="m-2 col-1">Add a Note</h5>
+        <input type="text" name="title" placeholder="Title" id="noteHeadline">
+        <textarea type="text" name="body" id="noteBody" placeholder="Write Note Here" class="align-center"></textarea>
+        <input type="submit" class="btn btn-success" data-id="{{id}}" id="addNote">
     </div>
-    <div>
-        <h4>Notes:</h4> {{#each noteObj}} {{> noteDisplay}} {{/each}}
+    <div class="row">
+        <div class="col-1"></div>
+        <h4 class="col-6">Notes:</h4>
+        <div class="col-5"></div>
+            {{#each articleObj.Notes}}
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <h3>{{headline}}</h3>
+                            <h4>{{body}}</h4>
+                            <a class="btn btn-danger save" id="deleteNote" data-noteId="{{id}}">Delete Note</a>
+                        </div>
+                    </div>
+            {{/each}}
+        </div>
     </div>
 </div>

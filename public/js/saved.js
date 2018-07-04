@@ -1,6 +1,6 @@
 $(function() {
     //Unsave listener
-    $("#unsave").on("click", function(event) {
+    $(document).on("click", "#unsave", function(event) {
         const id = $(this).data("id");
         $.ajax("/api/saved/"+id, {
             type: "DELETE",
@@ -22,7 +22,7 @@ $(function() {
     });
 
     //Add Note Listener
-    $("#addNote").on("click", function(event) {
+    $(document).on("click","#addNote", function(event) {
         const id = $(this).data("id");
         const headline = $("#noteHeadline").text.trim;
         const body = $("#noteBody").text.trim;
@@ -41,8 +41,8 @@ $(function() {
 
 
     //Remove Note Listener
-    $("#deleteNote").on("click", function(event) {
-        const id = $(this).data("id");
+    $(document).on("click", "#deleteNote", function(event) {
+        const id = $(this).data("noteId");
         $.ajax("/api/note/"+id, {
             type: "DELETE",
         }). then(

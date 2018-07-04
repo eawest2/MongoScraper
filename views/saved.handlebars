@@ -7,28 +7,30 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/saved">Saved Articles
+                <a class="nav-link active" href="/saved">Saved Articles
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
         </ul>
     </div>
 </nav>
-<h1>
-    Saved Articles
-</h1>
-<div class="container-fluid article-container">
 
-    {{#each articlesObj}} {{> savedArticle}} {{/each}}
-
+<div>
+    <h1>
+        Saved Articles
+    </h1>
+    <div>
+        {{#each articlesObj}} {{> savedArticle}} {{/each}}
+    </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
+
+<footer class="footer bg-dark">
+    <div class="container text-white p-2">
         <p>BBC Mongo Scraper</p>
     </div>
 </footer>
